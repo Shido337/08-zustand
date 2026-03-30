@@ -7,22 +7,24 @@ interface NotePreviewProps {
 }
 
 export default async function NotePreview({ id }: NotePreviewProps) {
-  try {
-    const note = await fetchNoteById(id);
+  let note;
 
-    return (
-      <div className={css.container}>
-        <div className={css.item}>
-          <div className={css.header}>
-            <h2>{note.title}</h2>
-          </div>
-          <p className={css.tag}>{note.tag}</p>
-          <p className={css.content}>{note.content}</p>
-          <p className={css.date}>{note.createdAt}</p>
-        </div>
-      </div>
-    );
+  try {
+    note = await fetchNoteById(id);
   } catch {
     notFound();
   }
+
+  return (
+    <div className={css.container}>
+      <div className={css.item}>
+        <div className={css.header}>
+          <h2>{note.title}</h2>
+        </div>
+        <p className={css.tag}>{note.tag}</p>
+        <p className={css.content}>{note.content}</p>
+        <p className={css.date}>{note.createdAt}</p>
+      </div>
+    </div>
+  );
 }
